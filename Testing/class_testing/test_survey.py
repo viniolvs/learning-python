@@ -4,22 +4,23 @@ from survey import AnonymousSurvey
 
 #teste para classe AnonymousSurvey
 class TestAnonymousSurvey(unittest.TestCase):
-    def test_storeSingleResponse(self):
+    #cria uma pesquisa e um conjunto de resposta para utilizar em todos os testes da classe
+    def setUp(self):
         question = "What language did you first learned?"
-        my_survey = AnonymousSurvey(question)
-        my_survey.storeResponse('English')
+        self.my_survey = AnonymousSurvey(question)       
+        self.responses = ['English', 'Portuguese', 'French']
+
+    def test_storeSingleResponse(self):
+        self.my_survey.storeResponse(self.responses[0])
         #verifica se o primeiro parâmetro esta armazenado no segundo
-        self.assertIn('English', my_survey.responses)
+        self.assertIn('English', self.my_survey.responses)
 
     def test_storeThreeResponses(self):
-        question = "What language did you first learned?"
-        my_survey = AnonymousSurvey(question)
-        responses = ['English', 'Portuguese', 'French']
-        for r in responses:
-            my_survey.storeResponse(r)
+        for r in self.responses:
+            self.my_survey.storeResponse(r)
 
-        for r in responses:
-            self.assertIn(r,my_survey.responses)
+        for r in self.responses:
+            self.assertIn(r,self.my_survey.responses)
     
 
 unittest.main()
